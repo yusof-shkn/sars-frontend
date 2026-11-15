@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sars-frontend",
+  "compatibility_date": "2026-10-29",
+  // Static build only, no Worker script. Unknown paths fall back to index.html.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+  },
+  "observability": {
+    "enabled": true,
+  },
+}

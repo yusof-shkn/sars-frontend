@@ -17,6 +17,11 @@ the Vite dev server forwards them to the backend (`BACKEND_URL`, default http://
 Page and data then share one address and one port, so others on the network can open
 `http://<this machine's IP>:5173` while the backend stays on localhost.
 
+## Deploy
+Cloudflare Workers (static assets, `wrangler.jsonc`), built from the `prod` branch with
+`bun run build` and published with `bun run deploy`. Production builds read the API address from
+`.env.production` (https://shkn.site/sars).
+
 ## What is on the page
 - Left sidebar: a searchable event list, the measured change per class, the numbered areas
   (searchable by number or by darker / growth / double bounce), the change histogram, how to read
