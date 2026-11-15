@@ -1,0 +1,366 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@import "@fontsource-variable/public-sans";
+
+@custom-variant dark (&:is(.dark *));
+
+/* SAR Change Watch — survey-instrument palette.
+   Public Sans (the U.S. Web Design System typeface) for everything; cool survey white chrome so
+   the map carries the colour; one action colour (NISAR teal). Change classes: blue = water /
+   darker, orange = land change, magenta = double bounce, pale teal = wind on open water.
+   Blue vs orange is the pair that stays distinct for colour-blind viewers. */
+:root {
+  --background: #e9eef1;
+  --foreground: #0f2533;
+  --card: #f6f8f9;
+  --card-foreground: #0f2533;
+  --popover: #ffffff;
+  --popover-foreground: #0f2533;
+  --primary: #00758f;
+  --primary-foreground: #ffffff;
+  --secondary: #e3e9ed;
+  --secondary-foreground: #0f2533;
+  --muted: #dde4e8;
+  --muted-foreground: #4d6070;
+  --accent: #e3eef1;
+  --accent-foreground: #0f2533;
+  --destructive: #c4321c;
+  --destructive-foreground: #ffffff;
+  --border: #cdd6dc;
+  --input: #cdd6dc;
+  --ring: #00758f;
+  --radius: 0.625rem;
+
+  --chart-1: #00758f;
+  --chart-2: #0f2533;
+  --chart-3: #4d6070;
+  --chart-4: #9fb0bb;
+  --chart-5: #cdd6dc;
+
+  --change-decrease: #1d63c4;
+  --change-increase: #b42c7e;
+  --change-volume: #e07a1f;
+  --change-rough: #63b5c2;
+
+  /* Ground on each date: fixed colours, the same as the PNGs (sars-backend ground.py). */
+  --ground-water: #1b3f7a;
+  --ground-smooth: #c8a26b;
+  --ground-medium: #7fae5a;
+  --ground-bright: #f1ead8;
+
+  --shadow: 0 1px 2px rgb(15 37 51 / 0.08), 0 8px 24px -12px rgb(15 37 51 / 0.25);
+  color-scheme: light;
+}
+
+.dark {
+  --background: #0b161d;
+  --foreground: #e3ebef;
+  --card: #13222c;
+  --card-foreground: #e3ebef;
+  --popover: #13222c;
+  --popover-foreground: #e3ebef;
+  --primary: #4fb3c8;
+  --primary-foreground: #0b161d;
+  --secondary: #1b2e3a;
+  --secondary-foreground: #e3ebef;
+  --muted: #1f3441;
+  --muted-foreground: #9db0bc;
+  --accent: #1d3442;
+  --accent-foreground: #e3ebef;
+  --destructive: #ef6b55;
+  --destructive-foreground: #0b161d;
+  --border: #2a4150;
+  --input: #2a4150;
+  --ring: #4fb3c8;
+
+  --chart-1: #4fb3c8;
+  --chart-2: #e3ebef;
+  --chart-3: #9db0bc;
+  --chart-4: #4f6878;
+  --chart-5: #2a4150;
+
+  --change-decrease: #4d8be0;
+  --change-increase: #d6559f;
+  --change-volume: #f0923a;
+  --change-rough: #7fcad6;
+
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 28px -12px rgb(0 0 0 / 0.7);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-decrease: var(--change-decrease);
+  --color-increase: var(--change-increase);
+  --color-volume: var(--change-volume);
+  --color-rough: var(--change-rough);
+  --color-ground-water: var(--ground-water);
+  --color-ground-smooth: var(--ground-smooth);
+  --color-ground-medium: var(--ground-medium);
+  --color-ground-bright: var(--ground-bright);
+
+  --shadow-card: var(--shadow);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans antialiased;
+    font-feature-settings: "tnum" 1;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ---------- Leaflet, re-skinned to the theme ---------- */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: var(--muted);
+  z-index: 0;
+}
+.dark .leaflet-tile-pane .basemap-gray {
+  filter: none;
+}
+.leaflet-control-attribution {
+  background: color-mix(in srgb, var(--card) 88%, transparent) !important;
+  color: var(--muted-foreground) !important;
+  font-size: 10px;
+}
+.leaflet-control-attribution a {
+  color: var(--foreground) !important;
+}
+.leaflet-control-scale-line {
+  background: color-mix(in srgb, var(--card) 88%, transparent) !important;
+  border-color: var(--foreground) !important;
+  color: var(--foreground) !important;
+  font-size: 11px;
+}
+
+/* Full-screen map app */
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  overflow: hidden;
+}
+.leaflet-control-attribution {
+  margin-right: 6px !important;
+  margin-bottom: 4px !important;
+  border-radius: 6px;
+}
+/* Above the toolbar row (bottom 20px + 44px), so the toolbar never covers it. */
+.leaflet-control-scale {
+  margin-right: 16px !important;
+  margin-bottom: 76px !important;
+}
+
+/* Phones: the attribution needs the whole bottom edge; the scale bar comes back at sm. */
+@media (max-width: 639px) {
+  .leaflet-control-scale {
+    display: none;
+  }
+  .leaflet-control-attribution {
+    max-width: calc(100vw - 12px);
+    font-size: 9px;
+  }
+}
+
+/* Numbered badges on the largest change regions */
+.region-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--card);
+  color: var(--foreground);
+  border: 2px solid var(--foreground);
+  box-shadow: var(--shadow);
+  font: 700 11px var(--font-sans);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
+
+/* ---------- Glass ----------
+   One recipe for every surface that floats over the map: translucent fill, blur + saturate so
+   the imagery behind stays colourful, a faint teal-tinted rim and a soft lift. Content-bearing,
+   so the fill stays at ~72% for legible text over busy radar and satellite tiles. */
+.glass {
+  background: rgb(250 252 253 / 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, rgb(255 255 255 / 0.6));
+  box-shadow:
+    0 10px 34px -10px rgb(15 37 51 / 0.35),
+    inset 0 1px 0 rgb(255 255 255 / 0.55);
+}
+.dark .glass {
+  background: rgb(14 26 34 / 0.7);
+  border-color: color-mix(in srgb, var(--primary) 22%, rgb(200 210 218 / 0.16));
+  box-shadow:
+    0 12px 38px -10px rgb(0 0 0 / 0.65),
+    inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .glass {
+    background: rgb(250 252 253 / 0.95);
+  }
+  .dark .glass {
+    background: rgb(14 26 34 / 0.95);
+  }
+}
+
+/* Leaflet marks every marker icon display:block; the badge needs flex to centre its number. */
+/* Story pins: lettered, in the accent colour, so they never read as the numbered areas. */
+.story-pin,
+.story-pin-inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #c2410c;
+  color: #fff;
+  border: 2px solid #fff;
+  box-shadow: var(--shadow);
+  font: 700 12px var(--font-sans);
+}
+.story-pin {
+  cursor: pointer;
+  line-height: 1;
+  box-sizing: border-box;
+  overflow: visible;
+}
+.leaflet-marker-icon.story-pin {
+  display: flex !important;
+}
+.story-pin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 2px;
+  height: 10px;
+  margin-left: -1px;
+  background: #c2410c;
+}
+.story-pin-on {
+  background: #fff;
+  color: #c2410c;
+  border-color: #c2410c;
+  animation: story-pulse 1.6s ease-out infinite;
+}
+@keyframes story-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(194 65 12 / 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 22px rgb(194 65 12 / 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-pin-on {
+    animation: none;
+    outline: 3px solid rgb(194 65 12 / 0.4);
+  }
+}
+.story-pin-inline {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+.leaflet-marker-icon.region-badge {
+  display: flex !important;
+  line-height: 1;
+  box-sizing: border-box;
+  overflow: visible;
+}
+/* The pointer: a short stem from the badge down to the exact spot it marks. */
+.region-badge::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 2px;
+  height: 10px;
+  margin-left: -1px;
+  background: var(--foreground);
+}
+
+/* Scrollbars inside glass panels: thin, translucent, no white track. */
+.glass,
+.glass * {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--foreground) 22%, transparent) transparent;
+}
+.glass::-webkit-scrollbar,
+.glass *::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+.glass::-webkit-scrollbar-thumb,
+.glass *::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--foreground) 22%, transparent);
+  border-radius: 9999px;
+}
+.glass::-webkit-scrollbar-button,
+.glass *::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Fractional zoom scales tiles by non-integer factors. Leaflet blends tiles with plus-lighter to
+   hide the gaps that leaves, but where scaled edges overlap the colours add up to a white hairline
+   on the light gray basemap. Normal blending over a background of the basemap's own gray hides
+   the gaps instead. */
+.leaflet-container .basemap-gray img.leaflet-tile {
+  mix-blend-mode: normal;
+}
+.leaflet-container:has(.basemap-gray) {
+  background: #efefef;
+}
+.dark .leaflet-container:has(.basemap-gray) {
+  background: #242424;
+}
